@@ -12,6 +12,7 @@ from .decathlon import DecathlonDataset
 from .drive import DRIVEDataset
 from .dsdl import DSDLSegDataset
 from .hrf import HRFDataset
+from .hsi_drive import HSIDrive20
 from .isaid import iSAIDDataset
 from .isprs import ISPRSDataset
 from .levir import LEVIRCDDataset
