@@ -8,6 +8,7 @@ from .erfnet import ERFNet
 from .fast_scnn import FastSCNN
 from .hrnet import HRNet
 from .icnet import ICNet
+#from .internimage import InternImage
 from .mae import MAE
 from .mit import MixVisionTransformer
 from .mobilenet_v2 import MobileNetV2
@@ -24,7 +25,6 @@ from .twins import PCPVT, SVT
 from .unet import UNet
 from .vit import VisionTransformer
 from .vpd import VPD
-from .internimage import InternImage
 
 __all__ = [
     'ResNet', 'ResNetV1c', 'ResNetV1d', 'ResNeXt', 'HRNet', 'FastSCNN',
@@ -32,5 +32,5 @@ __all__ = [
     'VisionTransformer', 'SwinTransformer', 'MixVisionTransformer',
     'BiSeNetV1', 'BiSeNetV2', 'ICNet', 'TIMMBackbone', 'ERFNet', 'PCPVT',
     'SVT', 'STDCNet', 'STDCContextPathNet', 'BEiT', 'MAE', 'PIDNet', 'MSCAN',
-    'DDRNet', 'VPD', 'internimage'
+    'DDRNet', 'VPD'
 ]
