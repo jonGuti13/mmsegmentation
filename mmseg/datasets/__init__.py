@@ -9,6 +9,7 @@ from .dark_zurich import DarkZurichDataset
 from .dataset_wrappers import (ConcatDataset, MultiImageMixDataset,
                                RepeatDataset)
 from .drive import DRIVEDataset
+from .hsi_drive import HSIDrive20
 from .hrf import HRFDataset
 from .isaid import iSAIDDataset
 from .isprs import ISPRSDataset
@@ -24,6 +25,7 @@ __all__ = [
     'DATASETS', 'build_dataset', 'PIPELINES', 'CityscapesDataset',
     'PascalVOCDataset', 'ADE20KDataset', 'PascalContextDataset',
     'PascalContextDataset59', 'ChaseDB1Dataset', 'DRIVEDataset', 'HRFDataset',
+    'HSIDrive20',
     'STAREDataset', 'DarkZurichDataset', 'NightDrivingDataset',
     'COCOStuffDataset', 'LoveDADataset', 'MultiImageMixDataset',
     'iSAIDDataset', 'ISPRSDataset', 'PotsdamDataset'
