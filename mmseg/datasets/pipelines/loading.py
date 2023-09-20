@@ -61,6 +61,10 @@ class LoadImageFromFile(object):
         img_bytes = self.file_client.get(filename)
         img = mmcv.imfrombytes(
             img_bytes, flag=self.color_type, backend=self.imdecode_backend)
+
+        if filename[-3:] == 'npy':
+          img = np.load(filename)
+
         if self.to_float32:
             img = img.astype(np.float32)
 
