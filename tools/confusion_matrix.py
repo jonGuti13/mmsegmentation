@@ -20,6 +20,8 @@ def parse_args():
     parser.add_argument(
         'save_dir', help='directory where confusion matrix will be saved')
     parser.add_argument(
+        '--normalized', action='store_true', help='normalize confusion matrix')
+    parser.add_argument(
         '--show', action='store_true', help='show confusion matrix')
     parser.add_argument(
         '--color-theme',
@@ -67,6 +69,7 @@ def calculate_confusion_matrix(dataset, results):
 
 def plot_confusion_matrix(confusion_matrix,
                           labels,
+                          normalized = False,
                           save_dir=None,
                           show=True,
                           title='Normalized Confusion Matrix',
@@ -76,16 +79,18 @@ def plot_confusion_matrix(confusion_matrix,
     Args:
         confusion_matrix (ndarray): The confusion matrix.
         labels (list[str]): List of class names.
+        normalized (bool): Whether to calculate normalized or unnormalized version. Default: False.
         save_dir (str|optional): If set, save the confusion matrix plot to the
             given path. Default: None.
         show (bool): Whether to show the plot. Default: True.
         title (str): Title of the plot. Default: `Normalized Confusion Matrix`.
         color_theme (str): Theme of the matrix color map. Default: `winter`.
     """
-    # normalize the confusion matrix
-    per_label_sums = confusion_matrix.sum(axis=1)[:, np.newaxis]
-    confusion_matrix = \
-        confusion_matrix.astype(np.float32) / per_label_sums * 100
+
+    #normalize the confusion matrix
+    if normalized:
+        per_label_sums = confusion_matrix.sum(axis=1)[:, np.newaxis]
+        confusion_matrix = confusion_matrix.astype(np.float32) / per_label_sums * 100
 
     num_classes = len(labels)
     fig, ax = plt.subplots(
@@ -124,19 +129,32 @@ def plot_confusion_matrix(confusion_matrix,
     plt.setp(
         ax.get_xticklabels(), rotation=45, ha='left', rotation_mode='anchor')
 
-    # draw confusion matrix value
-    for i in range(num_classes):
-        for j in range(num_classes):
-            ax.text(
-                j,
-                i,
-                '{}%'.format(
-                    round(confusion_matrix[i, j], 2
-                          ) if not np.isnan(confusion_matrix[i, j]) else -1),
-                ha='center',
-                va='center',
-                color='w',
-                size=7)
+    if normalized:
+        # draw confusion matrix value
+        for i in range(num_classes):
+            for j in range(num_classes):
+                ax.text(
+                    j,
+                    i,
+                    '{}%'.format(
+                        round(confusion_matrix[i, j], 2
+                              ) if not np.isnan(confusion_matrix[i, j]) else -1),
+                    ha='center',
+                    va='center',
+                    color='w',
+                    size=7)
+    else:
+        # draw confusion matrix value
+        for i in range(num_classes):
+            for j in range(num_classes):
+                ax.text(
+                    j,
+                    i,
+                    confusion_matrix[i, j],
+                    ha='center',
+                    va='center',
+                    color='w',
+                    size=7)
 
     ax.set_ylim(len(confusion_matrix) - 0.5, -0.5)  # matplotlib>3.1.1
 
@@ -174,6 +192,7 @@ def main():
     plot_confusion_matrix(
         confusion_matrix,
         dataset.CLASSES,
+        normalized=args.normalized,
         save_dir=args.save_dir,
         show=args.show,
         title=args.title,
