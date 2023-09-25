@@ -5,7 +5,7 @@ from mmcv import Config
 from mmcv.cnn import get_model_complexity_info
 
 import sys
-sys.path.append("/workspace/InternImage/InternImage/segmentation")
+sys.path.append("/workspace/InternImage/segmentation")
 
 
 from mmseg.models import build_segmentor
@@ -33,6 +33,8 @@ def main():
         input_shape = (3, args.shape[0], args.shape[0])
     elif len(args.shape) == 2:
         input_shape = (3, ) + tuple(args.shape)
+    elif len(args.shape) == 3:
+        input_shape = (args.shape[0], args.shape[1], args.shape[2])
     else:
         raise ValueError('invalid input shape')
 
