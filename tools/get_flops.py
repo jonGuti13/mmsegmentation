@@ -4,6 +4,10 @@ import argparse
 from mmcv import Config
 from mmcv.cnn import get_model_complexity_info
 
+import sys
+sys.path.append("/workspace/InternImage/InternImage/segmentation")
+
+
 from mmseg.models import build_segmentor
 
 
