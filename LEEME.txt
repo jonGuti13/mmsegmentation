@@ -1,0 +1,22 @@
+De momento, he hecho unos entrenamientos muy preliminares con nuestra base de datos y modelos por defecto que están en este repositorio
+ (adaptando los configs a las características de nuestra base de datos).
+
+Para ello, he usado la imagen nvcr.io/nvidia/pytorch:21.02-py3-jon-internImage-mmdeploy y, en concreto, el entorno internimage de conda.
+Esta entorno de esta imagen tiene los siguientes paquetes asociados a openmm en las siguientes versiones/estado:
+mmcls                     0.25.0                   pypi_0    pypi
+mmcv                      2.0.1                     dev_0    <develop>
+mmdeploy                  1.2.0                    pypi_0    pypi
+mmdeploy-runtime          1.2.0                    pypi_0    pypi
+mmdeploy-runtime-gpu      1.2.0                    pypi_0    pypi
+mmdet                     3.1.0                    pypi_0    pypi
+mmengine                  0.8.4                    pypi_0    pypi
+mmsegmentation            1.1.2                     dev_0    <develop>
+timm                      0.6.11                   pypi_0    pypi
+
+Para crear un contenedor ejecuto el comando nvidia-docker run --rm -it --ipc=host -v /media/jon/DATUAK/Jon/phd/Pytorch-AI-tutorials/openmm/:/workspace -v /media/jon/DATUAK/Jon/phd_data/HSI-Drive/2.0/openmm/:/data nvcr.io/nvidia/pytorch:21.02-py3-jon-internImage-mmdeploy
+
+Para poder subir un cambio a un repositorio de openmmlab tengo que previamente ejecutar unos test con pytest:
+Ejecuto `pytest ./tests/` ubicandome en la carpeta que contenga esos tests (ya sea mmcv o mmsegmentation o lo que sea).
+El problema es que pytest ya está instalado de base asociado a la versión 3.8 de Python y el entorno internimage va asociado a la version 3.7
+Por eso, extraña y curiosamente, pytest se ejecuta con python3.8 dentro de internimage y me dice que hay ciertos paquetes no instalados (los he instalado con 3.7)
+Lo que he hecho ha sido desinstalar pytest y volver a instalarlo dentro del entorno internimage.
